@@ -3,7 +3,7 @@ name: Build & publish images
 on:
   push:
      path:
-       - './mongodb-backup/'
+       - 'mongodb-backup/**'
     branches:
       - "master"
     tags:
