@@ -1,8 +1,9 @@
 name: Build & publish images
+
 on:
   push:
     branches:
-      - 'test-mongodbdump'
+      - 'test-mongodump'
 
 env:
   REGISTRY: ghcr.io
