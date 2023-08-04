@@ -2,8 +2,9 @@ name: Build & publish images
 
 on:
   push:
-    branches: [ "master" ]
-    tags: 'm*'
+#    branches: [ "master" ]
+    paths: ['mongodb-backup/**']
+#    tags: 'm*'
 
 env:
   REGISTRY: ghcr.io
