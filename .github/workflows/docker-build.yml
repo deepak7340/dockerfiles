@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "mongodump-s3", "*" ]
+    branches: [ "*" ]
 
 jobs:
   docker:
@@ -11,6 +11,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Fetch master branch
+        run: git fetch origin master
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -28,7 +31,14 @@ jobs:
       
       - name: Determine tag name
         id: tag_name
-        run: echo ::set-output name=TAG_NAME::$(if [ "${GITHUB_REF##*/}" == "master" ]; then echo "latest"; else echo "${GITHUB_REF##*/}"; fi)
+        run: echo ::set-output name=TAG_NAME::$(if [ "${GITHUB_REF##*/}" == "master" ]; then echo "latest"; else echo "deepak7340-${GITHUB_REF##*/}"; fi)
+
+      - name: Find Image Directories
+        id: image_dir
+        run: |
+          IMAGE_DIR=$(git diff origin/master --stat -- * | grep -v "files changed"| cut -d "/" -f 1 | sort -u |tr -d ' ')
+          echo "Image directorie: $Image_DIR"
+          echo "::set-output name=image_dir::$IMAGE_DIR"
 
       - name: Prepare
         id: prep
@@ -37,12 +47,13 @@ jobs:
       
       - name: Build and push
         env:
-          TAG: ${{ steps.get_branch_name.outputs.TAG_NAME }}
+          TAG: ${{ steps.tag_name.outputs.TAG_NAME }}
+          IMAGE_DIR: ${{ steps.image_dir.outputs.IMAGE_DIR }}
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./mongodb-backup/Dockerfile
+          file: ./${{ env.IMAGE_DIR }}/Dockerfile
           platforms: linux/amd64
           pull: true # Pull new version of base image, always; avoid bit-rot
           push: true
@@ -57,4 +68,5 @@ jobs:
           cache-from: type=gha # all-automatic Github Actions caching
           cache-to: type=gha,mode=max
           build-args: |
-          tags: ghcr.io/obmondo/mongodbbackup/mongodbbackup:${TAG}
+            TAG=${TAG}
+          tags: ghcr.io/deepak7340/${{ env.IMAGE_DIR }}:${{ env.TAG }}
