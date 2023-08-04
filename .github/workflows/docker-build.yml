@@ -2,6 +2,8 @@ name: Docker Image CI
 
 on:
   push:
+    branches:
+      - 'test-mongodump'
     tags:
       - 'v*.*.*'
 jobs:
