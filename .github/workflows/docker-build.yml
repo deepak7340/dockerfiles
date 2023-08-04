@@ -14,8 +14,6 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-mongodb:
-    runs-on: ubuntu-latest
   build-and-push-image:
     runs-on: ubuntu-latest
     strategy:
