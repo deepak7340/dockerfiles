@@ -22,8 +22,6 @@ jobs:
         include:
           - dockerfile: ./mongodb-backup/Dockerfile
             image: ghcr.io/deepak7340/mongodbbackup
-          - dockerfile: ./backup-sealed-secrets-keys/Dockerfile
-            image: ghcr.io/deepak7340/backup-sealed-secrets-keys
     permissions:
       contents: read
       packages: write
