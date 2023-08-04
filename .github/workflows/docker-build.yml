@@ -10,6 +10,8 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  build-and-push-mongodb:
+    runs-on: ubuntu-latest
   build-and-push-image:
     runs-on: ubuntu-latest
     strategy:
@@ -21,7 +23,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-
+    if: github.event_name == 'push' && github.event.paths | any(startswith('mongodb-backup/'))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -42,7 +44,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: ./mongodb-backup/
+          context: .
           file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
