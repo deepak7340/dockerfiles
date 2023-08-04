@@ -5,9 +5,7 @@ on:
     path:
       - 'mongodb-backup/**'
     branches:
-      - "master"
-    tags:
-      - 'v*'
+      - "*"
 
 env:
   REGISTRY: ghcr.io
