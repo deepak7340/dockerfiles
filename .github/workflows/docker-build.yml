@@ -1,9 +1,13 @@
 name: Build & publish images
 
 on:
-  push:
-    path:
-      - 'mongodb-backup/**'
+    push:
+      branches: [ "master" ]
+      paths: 'mongodb-backup/**'
+      tags: '*'
+    pull_request:
+      branches: [ "master" ]
+      paths: 'mongodb-backup/**'
 
 env:
   REGISTRY: ghcr.io
@@ -23,7 +27,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    if: github.event_name == 'push' && github.event.paths | any(startswith('mongodb-backup/'))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
