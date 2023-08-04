@@ -1,0 +1,21 @@
+name: Print Tag
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - test-mongodump
+
+jobs:
+  print-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Print Tag
+        run: |
+          echo "Current tags:"
+          git tag -l
