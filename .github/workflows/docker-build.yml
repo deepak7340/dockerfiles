@@ -2,8 +2,6 @@ name: Build & publish images
 
 on:
   push:
-    branches:
-      - 'test-mongodump'
     tags:
       - 'v*'
 
