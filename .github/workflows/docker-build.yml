@@ -1,4 +1,4 @@
-name: mongodump
+name: sealedsecret
 
 on:
   - push
