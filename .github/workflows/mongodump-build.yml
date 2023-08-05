@@ -49,11 +49,13 @@ jobs:
 
       - name: Build and push image
         env:
-          IMAGE_TAG: ${{ steps.latest_tag.outputs.tag }}
+          TAG: ${{ steps.latest_tag.outputs.tag }}
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           file: ${{ matrix.dockerfile }}
           push: true
-          tags: ${{ env.IMAGE_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            TAG=${TAG}
+          tags: ghcr.io/deepak7340/mongodb-backup:${{ env.TAG }}
