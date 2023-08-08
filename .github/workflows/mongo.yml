@@ -39,12 +39,12 @@ jobs:
           else
             image_tag="$branch"
           fi
-          docker buildx build --tag ghcr.io/${{ github.repository }}/mongodb-backup:$image_tag .
+          docker buildx build --tag ghcr.io/mongodb-backup/Dockerfile:$image_tag .
       
       - name: Push Docker image
         run: |
           branch="${{ steps.get_branch.outputs.branch }}"
           docker push ghcr.io/${{ github.repository }}/mongodb-backup:"$branch"
           if [[ "$branch" == "master" ]]; then
-            docker push ghcr.io/${{ github.repository }}/mongodb-backup:latest
+            docker push ghcr.io/mongodb-backup/Dockerfile:latest
           fi
