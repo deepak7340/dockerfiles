@@ -40,12 +40,12 @@ jobs:
             image_tag="$branch"
           fi
           docker buildx build --file ./mongodb-backup/Dockerfile --tag ghcr.io/deepak7340/mongodb-backup:$image_tag .
-          docker push ghcr.io/deepak7340/mongodb-backup:$image_tag
-#
-#      - name: Push Docker image
-#        run: |
-#          branch="${{ steps.get_branch.outputs.branch }}"
-#          docker push ghcr.io/deepak7340/mongodb-backup:"${branch}"
-#          if [[ "$branch" == "master" ]]; then
-#            docker push ghcr.io/deepak7340/mongodb-backup:latest
-#          fi
+
+      - name: Push Docker image
+        run: |
+          branch="${{ steps.get_branch.outputs.branch }}"
+          if [[ "$branch" == "master" ]]; then
+            docker push ghcr.io/deepak7340/mongodb-backup:latest
+          else
+            docker push ghcr.io/deepak7340/mongodb-backup:$branch
+          fi
