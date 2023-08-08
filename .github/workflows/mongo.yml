@@ -47,5 +47,5 @@ jobs:
           if [[ "$branch" == "master" ]]; then
             docker push ghcr.io/deepak7340/mongodb-backup:latest
           else
-            docker push ghcr.io/deepak7340/mongodb-backup:$branch
+            docker push ghcr.io/deepak7340/mongodb-backup:"$branch"
           fi
