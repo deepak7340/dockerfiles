@@ -39,7 +39,7 @@ jobs:
           else
             image_tag="$branch"
           fi
-          docker buildx build --tag ghcr.io/deepak7340/dockerfiles/mongodb-backup:$image_tag .
+          docker buildx build --tag ghcr.io/dockerfiles/mongodb-backup:$image_tag .
       
       - name: Push Docker image
         run: |
