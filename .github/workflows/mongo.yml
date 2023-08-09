@@ -2,11 +2,11 @@ name: Build mongodb backup
 
 on:
     push:
-#      branches: [ "master" ]
+      branches: [ "*" ]
       paths: 'mongodb-backup/**'
 #      tags: '*'
     pull_request:
-#      branches: [ "master" ]
+      branches: [ "master" ]
       paths: 'mongodb-backup/**'
 
 jobs:
@@ -24,18 +24,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: dockerfiles/mongodb-backup
+          images: deepak7340/mongodb-backup
           tags: |
             type=ref,event=branch
-            type=ref,event=pr
             type=ref,event=tag
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha
             type=sha,prefix={{branch}}-
-            type=sha,format=long
-            type=sha,format=long,prefix={{branch}}-
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -48,7 +42,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          cache-from: type=registry,ref=dockerfiles/mongodb-backup:latest
+          cache-from: type=registry,ref=deepak7340/mongodb-backup:latest
           cache-to: type=inline
           context: .
           labels: ${{ steps.meta.outputs.labels }}
