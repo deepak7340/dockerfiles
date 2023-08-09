@@ -8,7 +8,7 @@ FROM ubuntu:22.04@sha256:965fbcae990b0467ed5657caceaec165018ef44a4d2d46c7cdea80a
 
 #RUN pip install --upgrade pip
 #RUN pip install azure-cli
-RUN mkdir /backup
+RUN mkdir /backup /ti
 
 #ENV S3_PATH=mongodb AWS_DEFAULT_REGION=us-east-1
 
