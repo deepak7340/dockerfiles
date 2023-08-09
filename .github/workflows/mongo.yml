@@ -28,8 +28,6 @@ jobs:
           tags: |
             type=ref,event=branch,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }}
             type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
-#            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-#            type=ref,event=branch,enable=${{ !github.ref == format('refs/heads/{0}', 'master') }}
             type=ref,event=tag
           flavor: |
             latest=false
