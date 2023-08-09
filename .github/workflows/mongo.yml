@@ -1,9 +1,9 @@
 name: Build mongodb backup
 
 on:
-  pull_request:
-    branches: [ "*" ]
-    paths: 'mongodb-backup/**'
+    pull_request:
+      branches: [ "*" ]
+      paths: 'mongodb-backup/**'
 
 jobs:
   build-and-push:
@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
       - name: Generate container metadata
         id: meta

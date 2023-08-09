@@ -1,9 +1,9 @@
 name: Build backup-sealed-secrets-keys
 
 on:
-  pull_request:
-    branches: [ "*" ]
-    paths: 'backup-sealed-secrets-keys/**'
+    pull_request:
+      branches: [ "*" ]
+      paths: 'backup-sealed-secrets-keys/**'
 
 jobs:
   build-and-push:
@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
       - name: Generate container metadata
         id: meta
