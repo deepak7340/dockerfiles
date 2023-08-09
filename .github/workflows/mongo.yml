@@ -6,7 +6,7 @@ on:
       paths: 'mongodb-backup/**'
       tags: '*'
     pull_request:
-      branches: [ "master" ]
+      branches: [ "*" ]
       paths: 'mongodb-backup/**'
 
 jobs:
