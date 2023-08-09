@@ -4,7 +4,7 @@ on:
     push:
       branches: [ "*" ]
       paths: 'mongodb-backup/**'
-#      tags: '*'
+      tags: '*'
     pull_request:
       branches: [ "master" ]
       paths: 'mongodb-backup/**'
@@ -26,6 +26,7 @@ jobs:
         with:
           images: deepak7340/mongodb-backup
           tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
             type=ref,event=branch
             type=ref,event=tag
             type=semver,pattern={{version}}
@@ -35,7 +36,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & push container image
