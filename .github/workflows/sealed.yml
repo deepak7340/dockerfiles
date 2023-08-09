@@ -1,13 +1,9 @@
 name: Build backup-sealed-secrets-keys
 
 on:
-    push:
-      branches: [ "*" ]
-      paths: 'backup-sealed-secrets-keys/**'
-      tags: '*'
-    pull_request:
-      branches: [ "*" ]
-      paths: 'backup-sealed-secrets-keys/**'
+  pull_request:
+    branches: [ "*" ]
+    paths: 'backup-sealed-secrets-keys/**'
 
 jobs:
   build-and-push:

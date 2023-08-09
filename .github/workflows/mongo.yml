@@ -1,13 +1,9 @@
 name: Build mongodb backup
 
 on:
-    push:
-      branches: [ "*" ]
-      paths: 'mongodb-backup/**'
-      tags: '*'
-    pull_request:
-      branches: [ "*" ]
-      paths: 'mongodb-backup/**'
+  pull_request:
+    branches: [ "*" ]
+    paths: 'mongodb-backup/**'
 
 jobs:
   build-and-push:
